@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     public float width = 1;
     public float height = 1;
     private LayerMask mask;
+    AudioSource jumpSound;
 
     private List<Collider2D> respawnTriggers = new List<Collider2D>();
     private Checkpoints checkpoints;
@@ -36,6 +37,7 @@ public class Player : MonoBehaviour
         {
             respawnTriggers.Add(transform.GetChild(i).GetComponent<Collider2D>());
         }
+        jumpSound = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -97,6 +99,7 @@ public class Player : MonoBehaviour
                 {
                     jumpBurstUsed = true;
                     rigidbody.AddForce(new Vector2(0, jumpForce));
+                    jumpSound.Play();
                 }
             }
             jumpBurstUsed = false;
