@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,9 +23,12 @@ public class Player : MonoBehaviour
     public float height = 1;
     private LayerMask mask;
     AudioSource jumpSound;
+    public Sprite jumpSprite;
+    public Sprite idleSprite;
 
     private List<Collider2D> respawnTriggers = new List<Collider2D>();
     private Checkpoints checkpoints;
+    private Transform sprite;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +42,7 @@ public class Player : MonoBehaviour
             respawnTriggers.Add(transform.GetChild(i).GetComponent<Collider2D>());
         }
         jumpSound = GetComponent<AudioSource>();
+        sprite = transform.Find("Capybara");
     }
 
     // Update is called once per frame
@@ -50,6 +55,42 @@ public class Player : MonoBehaviour
     {
         HandleMove();
         HandleJump();
+        HandleSprite();
+    }
+
+    private void HandleSprite()
+    {
+        Animator animator = sprite.GetComponent<Animator>();
+
+        if (left)
+        {
+            sprite.localScale = new Vector3(-Math.Abs(sprite.localScale.x), sprite.localScale.y, sprite.localScale.z);
+        }
+        if (right)
+        {
+            sprite.localScale = new Vector3(Math.Abs(sprite.localScale.x), sprite.localScale.y, sprite.localScale.z);
+        }
+        if (!OnGround())
+        {
+            animator.enabled = false;
+            SpriteRenderer renderer = sprite.GetComponent<SpriteRenderer>();
+            renderer.sprite = jumpSprite;
+        }
+        else
+        {
+            if(Math.Abs(rigidbody.velocity.x) < 0.1f)
+            {
+                animator.enabled = false;
+                SpriteRenderer renderer = sprite.GetComponent<SpriteRenderer>();
+                renderer.sprite = idleSprite;
+            }
+            else
+            {
+                animator.enabled = true;
+            }
+            
+        }
+        
     }
 
     public void Respawn()
