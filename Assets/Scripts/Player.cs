@@ -20,14 +20,22 @@ public class Player : MonoBehaviour
     public float distToGround;
     public float width = 1;
     public float height = 1;
+    private LayerMask mask;
+
+    private List<Collider2D> respawnTriggers = new List<Collider2D>();
+    private Checkpoints checkpoints;
     // Start is called before the first frame update
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         collider = GetComponent<Collider2D>();
         distToGround = collider.bounds.extents.y;
-        LayerMask mask = ~LayerMask.GetMask("Player");
-        Debug.Log(mask);
+        mask = ~LayerMask.GetMask("Player");
+        checkpoints = GameObject.Find("Checkpoints").GetComponent<Checkpoints>();
+        for(int i = 0; i < transform.childCount; i++)
+        {
+            respawnTriggers.Add(transform.GetChild(i).GetComponent<Collider2D>());
+        }
     }
 
     // Update is called once per frame
@@ -38,10 +46,21 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        HandleMove();
+        HandleJump();
+    }
+
+    public void Respawn()
+    {
+        rigidbody.position = checkpoints.activeCheckpoint;
+    }
+
+    private void HandleMove()
+    {
         if (left)
         {
             rigidbody.AddForce(new Vector2(-acceleration, 0));
-            if(rigidbody.velocity.x < -maxSpeed)
+            if (rigidbody.velocity.x < -maxSpeed)
             {
                 rigidbody.velocity = new Vector2(Mathf.Min(-maxSpeed, rigidbody.velocity.x + decelerationAboveMaxSpeed), rigidbody.velocity.y);
             }
@@ -55,7 +74,10 @@ public class Player : MonoBehaviour
                 rigidbody.velocity = new Vector2(Mathf.Max(maxSpeed, rigidbody.velocity.x - decelerationAboveMaxSpeed), rigidbody.velocity.y);
             }
         }
+    }
 
+    private void HandleJump()
+    {
         MovingPlatform platform = GetMovingPlatformPlayerIsOn();
         if (platform != null)
         {
@@ -78,26 +100,25 @@ public class Player : MonoBehaviour
                 }
             }
             jumpBurstUsed = false;
-            
+
         }
         else
         {
             transform.parent = null;
             GetComponent<SpriteRenderer>().color = Color.white;
         }
-
     }
 
     private MovingPlatform GetMovingPlatformPlayerIsOn()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector3.down, distToGround + 0.3f, ~LayerMask.GetMask("Player"));
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector3.down, distToGround + 0.3f, mask);
         if (!hit)
         {
-            hit = Physics2D.Raycast(transform.position + new Vector3(-width / 2, 0, 0), Vector3.down, distToGround + 0.3f, ~LayerMask.GetMask("Player"));
+            hit = Physics2D.Raycast(transform.position + new Vector3(-width / 2, 0, 0), Vector3.down, distToGround + 0.3f, mask);
         }
         if (!hit)
         {
-            hit = Physics2D.Raycast(transform.position + new Vector3(width / 2, 0, 0), Vector3.down, distToGround + 0.3f, ~LayerMask.GetMask("Player"));
+            hit = Physics2D.Raycast(transform.position + new Vector3(width / 2, 0, 0), Vector3.down, distToGround + 0.3f, mask);
         }
         if (!hit)
         {
@@ -111,9 +132,9 @@ public class Player : MonoBehaviour
     }
 
     private bool OnGround() {
-        return Physics2D.Raycast(transform.position, Vector3.down, distToGround + 0.1f, ~LayerMask.GetMask("Player"))
-            || Physics2D.Raycast(transform.position + new Vector3(-width / 2, 0, 0), Vector3.down, distToGround + 0.1f, ~LayerMask.GetMask("Player"))
-            || Physics2D.Raycast(transform.position + new Vector3(width / 2, 0, 0), Vector3.down, distToGround + 0.1f, ~LayerMask.GetMask("Player"));
+        return Physics2D.Raycast(transform.position, Vector3.down, distToGround + 0.1f, mask)
+            || Physics2D.Raycast(transform.position + new Vector3(-width / 2, 0, 0), Vector3.down, distToGround + 0.1f, mask)
+            || Physics2D.Raycast(transform.position + new Vector3(width / 2, 0, 0), Vector3.down, distToGround + 0.1f, mask);
     }
 
     private void HandleControls()
