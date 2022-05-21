@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     private new Rigidbody2D rigidbody;
     private new Collider2D collider;
     public float maxSpeed = 10;
+    public float decelerationAboveMaxSpeed = 0.1f;
     public float acceleration = 10;
     public float jumpForce = 300;
     public bool jumpBurstUsed = false;
@@ -25,6 +26,8 @@ public class Player : MonoBehaviour
         rigidbody = GetComponent<Rigidbody2D>();
         collider = GetComponent<Collider2D>();
         distToGround = collider.bounds.extents.y;
+        LayerMask mask = ~LayerMask.GetMask("Player");
+        Debug.Log(mask);
     }
 
     // Update is called once per frame
@@ -40,7 +43,7 @@ public class Player : MonoBehaviour
             rigidbody.AddForce(new Vector2(-acceleration, 0));
             if(rigidbody.velocity.x < -maxSpeed)
             {
-                rigidbody.velocity = new Vector2(-maxSpeed, rigidbody.velocity.y);
+                rigidbody.velocity = new Vector2(Mathf.Min(-maxSpeed, rigidbody.velocity.x + decelerationAboveMaxSpeed), rigidbody.velocity.y);
             }
         }
 
@@ -49,11 +52,21 @@ public class Player : MonoBehaviour
             rigidbody.AddForce(new Vector2(acceleration, 0));
             if (rigidbody.velocity.x > maxSpeed)
             {
-                rigidbody.velocity = new Vector2(maxSpeed, rigidbody.velocity.y);
+                rigidbody.velocity = new Vector2(Mathf.Max(maxSpeed, rigidbody.velocity.x - decelerationAboveMaxSpeed), rigidbody.velocity.y);
             }
         }
 
-        
+        MovingPlatform platform = GetMovingPlatformPlayerIsOn();
+        if (platform != null)
+        {
+            transform.parent = platform.transform;
+            GetComponent<SpriteRenderer>().color = Color.red;
+        }
+        else
+        {
+            transform.parent = null;
+            GetComponent<SpriteRenderer>().color = Color.white;
+        }
         if (OnGround())
         {
             if (jump)
@@ -65,16 +78,42 @@ public class Player : MonoBehaviour
                 }
             }
             jumpBurstUsed = false;
-
+            
+        }
+        else
+        {
+            transform.parent = null;
+            GetComponent<SpriteRenderer>().color = Color.white;
         }
 
     }
 
+    private MovingPlatform GetMovingPlatformPlayerIsOn()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector3.down, distToGround + 0.3f, ~LayerMask.GetMask("Player"));
+        if (!hit)
+        {
+            hit = Physics2D.Raycast(transform.position + new Vector3(-width / 2, 0, 0), Vector3.down, distToGround + 0.3f, ~LayerMask.GetMask("Player"));
+        }
+        if (!hit)
+        {
+            hit = Physics2D.Raycast(transform.position + new Vector3(width / 2, 0, 0), Vector3.down, distToGround + 0.3f, ~LayerMask.GetMask("Player"));
+        }
+        if (!hit)
+        {
+            return null;
+        }
+        if(hit.transform.TryGetComponent(out MovingPlatform platform))
+        {
+            return platform;
+        }
+        return null;
+    }
+
     private bool OnGround() {
-        
-        return Physics2D.Raycast(transform.position - new Vector3(0, distToGround + 0.01f, 0), -Vector3.up,  0.1f) 
-            || Physics2D.Raycast(transform.position - new Vector3(-width/2, distToGround + 0.01f, 0), -Vector3.up, 0.1f)
-            || Physics2D.Raycast(transform.position - new Vector3(width / 2, distToGround + 0.01f, 0), -Vector3.up, 0.1f);
+        return Physics2D.Raycast(transform.position, Vector3.down, distToGround + 0.1f, ~LayerMask.GetMask("Player"))
+            || Physics2D.Raycast(transform.position + new Vector3(-width / 2, 0, 0), Vector3.down, distToGround + 0.1f, ~LayerMask.GetMask("Player"))
+            || Physics2D.Raycast(transform.position + new Vector3(width / 2, 0, 0), Vector3.down, distToGround + 0.1f, ~LayerMask.GetMask("Player"));
     }
 
     private void HandleControls()
