@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     public float height = 1;
     private LayerMask mask;
     AudioSource jumpSound;
+    MusicPlayer music;
     public Sprite jumpSprite;
     public Sprite idleSprite;
 
@@ -45,6 +46,7 @@ public class Player : MonoBehaviour
         }
         jumpSound = GetComponent<AudioSource>();
         sprite = transform.Find("Capybara");
+        music = GameObject.Find("MusicPlayer").GetComponent<MusicPlayer>();
     }
 
     // Update is called once per frame
