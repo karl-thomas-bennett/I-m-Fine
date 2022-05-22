@@ -120,9 +120,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 253
-        y: 4308
-        width: 2751
-        height: 1526
+        y: 5126
+        width: 1383
+        height: 708
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,10 +140,10 @@ TextureImporter:
       name: MessageBubble_1
       rect:
         serializedVersion: 2
-        x: 315
-        y: 2565
-        width: 2689
-        height: 1576
+        x: 1683
+        y: 5126
+        width: 1377
+        height: 708
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -161,10 +161,10 @@ TextureImporter:
       name: MessageBubble_2
       rect:
         serializedVersion: 2
-        x: 324
-        y: 693
-        width: 2680
-        height: 1582
+        x: 253
+        y: 4261
+        width: 1383
+        height: 823
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,6 +174,195 @@ TextureImporter:
       bones: []
       spriteID: 52d806d69fc46bc4693c4f0ec5f37feb
       internalID: 1950244362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessageBubble_3
+      rect:
+        serializedVersion: 2
+        x: 1683
+        y: 4261
+        width: 1377
+        height: 823
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88224e78c5a0ce64e9495f635ece90c8
+      internalID: -827477609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessageBubble_4
+      rect:
+        serializedVersion: 2
+        x: 315
+        y: 3309
+        width: 1321
+        height: 784
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f327761bc42f5c46bf376e34953d968
+      internalID: -202027852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessageBubble_5
+      rect:
+        serializedVersion: 2
+        x: 1683
+        y: 3309
+        width: 1377
+        height: 784
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c82b8e6be2b95a429e323471d98df3a
+      internalID: 1001898716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessageBubble_6
+      rect:
+        serializedVersion: 2
+        x: 315
+        y: 2471
+        width: 1321
+        height: 800
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3543abb3181d854099690d0d42f06f9
+      internalID: 1988936810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessageBubble_7
+      rect:
+        serializedVersion: 2
+        x: 1683
+        y: 2471
+        width: 1377
+        height: 800
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2a5dc36412ffe345b514c644723c658
+      internalID: -1374161226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessageBubble_8
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 1323
+        width: 1312
+        height: 861
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 868271b6502f318468607c0608e9207d
+      internalID: -1468376029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessageBubble_9
+      rect:
+        serializedVersion: 2
+        x: 1683
+        y: 1323
+        width: 1377
+        height: 861
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c94b1cdba69660d46b85f829f5c1599d
+      internalID: 1553382727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessageBubble_10
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 561
+        width: 1312
+        height: 730
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55cb69dbe9f3d394894353197fdf723b
+      internalID: -1872260568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MessageBubble_11
+      rect:
+        serializedVersion: 2
+        x: 1683
+        y: 561
+        width: 1377
+        height: 730
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7b92bbdb81a89b4d8eaedf946bf955c
+      internalID: 958209324
       vertices: []
       indices: 
       edges: []
@@ -191,7 +380,16 @@ TextureImporter:
     nameFileIdTable:
       MessageBubble_1: 1956985052
       MessageBubble_2: 1950244362
+      MessageBubble_8: -1468376029
+      MessageBubble_7: -1374161226
+      MessageBubble_9: 1553382727
+      MessageBubble_4: -202027852
+      MessageBubble_11: 958209324
       MessageBubble_0: -2103815037
+      MessageBubble_3: -827477609
+      MessageBubble_5: 1001898716
+      MessageBubble_6: 1988936810
+      MessageBubble_10: -1872260568
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
