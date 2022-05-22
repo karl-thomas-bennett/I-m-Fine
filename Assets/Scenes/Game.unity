@@ -16160,6 +16160,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 9195517679850817176, guid: 540505e2dc9c21840a9594c9a0a8256c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 86240746, guid: 886da52e8c96e524984364f894c1991c, type: 3}
     - target: {fileID: 9195517680819423906, guid: 540505e2dc9c21840a9594c9a0a8256c, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -16208,6 +16212,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 9195517680819423918, guid: 540505e2dc9c21840a9594c9a0a8256c, type: 3}
+      propertyPath: idleSprite
+      value: 
+      objectReference: {fileID: -1691058580, guid: 886da52e8c96e524984364f894c1991c, type: 3}
+    - target: {fileID: 9195517680819423918, guid: 540505e2dc9c21840a9594c9a0a8256c, type: 3}
+      propertyPath: jumpSprite
+      value: 
+      objectReference: {fileID: -723283479, guid: 886da52e8c96e524984364f894c1991c, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 540505e2dc9c21840a9594c9a0a8256c, type: 3}
 --- !u!1 &1601399191
