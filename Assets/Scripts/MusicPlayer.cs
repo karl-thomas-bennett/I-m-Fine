@@ -47,7 +47,8 @@ public class MusicPlayer : MonoBehaviour
             timeElapsed += Time.deltaTime;
             float melodyDirection = melodyGoalVolume - originalMelodyVolume;
             float baseDirection = baseGoalVolume - originalBaseVolume;
-
+            melodyPlayer.volume = originalMelodyVolume + melodyDirection * (timeElapsed/ transitionTime);
+            basePlayer.volume = originalBaseVolume + baseDirection * (timeElapsed / transitionTime);
         }
         
     }
