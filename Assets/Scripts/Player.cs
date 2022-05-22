@@ -29,6 +29,8 @@ public class Player : MonoBehaviour
     private List<Collider2D> respawnTriggers = new List<Collider2D>();
     private Checkpoints checkpoints;
     private Transform sprite;
+    public float timeBetweenJumps = 1;
+    public float timeTillNextJump = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -121,26 +123,30 @@ public class Player : MonoBehaviour
 
     private void HandleJump()
     {
+        if(timeTillNextJump > 0)
+        {
+            timeTillNextJump -= Time.deltaTime;
+        }
         MovingPlatform platform = GetMovingPlatformPlayerIsOn();
         if (platform != null)
         {
             transform.parent = platform.transform;
-            GetComponent<SpriteRenderer>().color = Color.red;
         }
         else
         {
             transform.parent = null;
-            GetComponent<SpriteRenderer>().color = Color.white;
         }
         if (OnGround())
         {
             if (jump)
             {
-                if (!jumpBurstUsed)
+                if (!jumpBurstUsed && timeTillNextJump <= 0)
                 {
                     jumpBurstUsed = true;
+                    rigidbody.velocity = new Vector2(rigidbody.velocity.x, 0);
                     rigidbody.AddForce(new Vector2(0, jumpForce));
                     jumpSound.Play();
+                    timeTillNextJump = timeBetweenJumps;
                 }
             }
             jumpBurstUsed = false;
@@ -149,7 +155,6 @@ public class Player : MonoBehaviour
         else
         {
             transform.parent = null;
-            GetComponent<SpriteRenderer>().color = Color.white;
         }
     }
 
@@ -176,9 +181,25 @@ public class Player : MonoBehaviour
     }
 
     private bool OnGround() {
-        return Physics2D.Raycast(transform.position, Vector3.down, distToGround + 0.1f, mask)
-            || Physics2D.Raycast(transform.position + new Vector3(-width / 2, 0, 0), Vector3.down, distToGround + 0.1f, mask)
-            || Physics2D.Raycast(transform.position + new Vector3(width / 2, 0, 0), Vector3.down, distToGround + 0.1f, mask);
+        Debug.Log(distToGround);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector3.down, 0.6f, mask);
+        if (!hit)
+        {
+            hit = Physics2D.Raycast(transform.position + new Vector3(-width / 2, 0, 0), Vector3.down, 0.6f, mask);
+        }
+        if (!hit)
+        {
+            hit = Physics2D.Raycast(transform.position + new Vector3(width / 2, 0, 0), Vector3.down, 0.6f, mask);
+        }
+        if(!hit)
+        {
+            return false;
+        }
+        if (!hit.collider.isTrigger)
+        {
+            return true;
+        }
+        return false;
     }
 
     private void HandleControls()
