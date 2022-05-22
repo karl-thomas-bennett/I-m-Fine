@@ -23,7 +23,7 @@ public class TextSpawner : MonoBehaviour
         timeTillNextText -= Time.deltaTime;
         if(timeTillNextText <= 0)
         {
-            GameObject obj = Instantiate(texts[RandomInt(0, texts.Count)], transform.position, Quaternion.identity);
+            GameObject obj = Instantiate(texts[Random.Range(0, texts.Count-1)], transform.position, Quaternion.identity);
             Rigidbody2D rigidbody = obj.GetComponent<Rigidbody2D>();
             ProjectileText text = obj.GetComponent<ProjectileText>();
             text.life = textLife;
